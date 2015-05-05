@@ -13,7 +13,6 @@ function ComfyDsl() {
   this.properties = [];
 }
 
-
 /**
  * Defines a required property.
  *
