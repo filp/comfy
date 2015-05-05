@@ -1,0 +1,23 @@
+{
+  "name": "comfy",
+  "version": "0.1.0",
+  "description": "Configure your applications comfortably",
+  "main": "src/comfy.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filp/comfy"
+  },
+  "keywords": [
+    "configuration",
+    "comfy",
+    "config",
+    "env",
+    "environment"
+  ],
+  "author": "Filipe Dobreira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filp/comfy/issues"
+  },
+  "homepage": "https://github.com/filp/comfy"
+}
