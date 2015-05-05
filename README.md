@@ -1,4 +1,4 @@
-# comfy [![npm version](https://badge.fury.io/js/comfy.svg)](http://badge.fury.io/js/comfy)
+# comfy [![npm version](https://badge.fury.io/js/comfy.svg)](http://badge.fury.io/js/comfy) [![Circle CI](https://circleci.com/gh/filp/comfy.svg?style=svg)](https://circleci.com/gh/filp/comfy)
 
 ![](http://i.imgur.com/Eq6r1Q2.png)
 
