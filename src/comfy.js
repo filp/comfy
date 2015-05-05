@@ -91,7 +91,7 @@ ComfyDsl.prototype.withOptions = function (options) {
   };
 };
 
-var Comfy = {
+module.exports = {
   build: function (definition, customScope) {
     var dsl = new ComfyDsl();
     var scope = customScope || process.env;
@@ -101,5 +101,3 @@ var Comfy = {
     return dsl.resolveAndSetProperties(this, scope);
   }
 };
-
-module.exports = Comfy;
