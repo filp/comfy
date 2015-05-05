@@ -43,4 +43,4 @@ npm install --save comfy
 
 ## Author
 
-`comfy` was developed by Filipe Dobreira, on @gabrielecirulli's fairly comfortable couch. Contributions (to the code, not the couch thing) are welcome!
+`comfy` was developed by Filipe Dobreira, on [@gabrielecirulli](https://github.com/gabrielecirulli)'s fairly comfortable couch. Contributions (to the code, not the couch thing) are welcome!
