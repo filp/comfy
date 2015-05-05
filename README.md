@@ -1,5 +1,7 @@
 # comfy
 
+![](http://i.imgur.com/Eq6r1Q2.png)
+
 Configure your applications comfortably, using environment variables
 and a simple DSL.
 
@@ -32,3 +34,13 @@ console.log(config.skyColor); // => "red"
 // If snake_case is your thing, you can also stick to that:
 console.log(config.sky_color) // => "red"
 ```
+
+## Install:
+
+```
+npm install --save comfy
+```
+
+## Author
+
+`comfy` was developed by Filipe Dobreira, on @gabrielecirulli's fairly comfortable couch. Contributions (to the code, not the couch thing) are welcome!
