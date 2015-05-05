@@ -5,12 +5,13 @@
 "use strict";
 
 /**
- * Tiny helper defining the syntax for defining properties.
+ * Tiny helper defining the syntax for defining properties, and
+ * container for the resolved properties.
  *
  * @class
  */
-function ComfyDsl() {
-  this.properties = [];
+function Comfy(env) {
+  this.env = env;
 }
 
 /**
@@ -26,7 +27,7 @@ function ComfyDsl() {
  * @arg  {string} name
  * @arg  {Object} options
  */
-ComfyDsl.prototype.required = function (name, options) {
+Comfy.prototype.required = function (name, options) {
   var newOptions = this.withOptions(options);
 
   newOptions.required = true;
@@ -48,7 +49,7 @@ ComfyDsl.prototype.required = function (name, options) {
  * @arg  defaultValue
  * @arg  {Object} options
  */
-ComfyDsl.prototype.optional = function (name, defaultValue, options) {
+Comfy.prototype.optional = function (name, defaultValue, options) {
   var newOptions = this.withOptions(options);
 
   if (typeof defaultValue === "undefined") {
@@ -69,8 +70,55 @@ ComfyDsl.prototype.optional = function (name, defaultValue, options) {
  * @arg {string} name
  * @arg {Object} options
  */
-ComfyDsl.prototype.property = function (name, options) {
-  this.properties.push([name, options]);
+Comfy.prototype.property = function (name, options) {
+  var envName = this.nameToEnvKey(name);
+  var envValue = this.env[envName];
+
+  if (typeof envValue === "undefined") {
+    if (options.optional) {
+      envValue = options.defaultValue;
+    } else {
+      throw "Required property " + envName + " not present in env:" + this.env;
+    }
+  }
+
+  if (options.transform) {
+    envValue = options.transform.call(null, envValue);
+  }
+
+  this.setProperty(name, envValue);
+};
+
+/**
+ * @param {string} name
+ * @param value
+ */
+Comfy.prototype.setProperty = function (name, value) {
+  this[name] = value;
+  this[this.nameToCamelCaseKey(name)] = value;
+};
+
+/**
+ * Transforms a snake_case property name into the correct name format
+ * to scan for a matching environment variable.
+ *
+ * @param {string} name
+ * @returns {string}
+ */
+Comfy.prototype.nameToEnvKey = function (name) {
+  return name.toUpperCase();
+};
+
+/**
+ * Transforms a snake_case property name into camelCase
+ *
+ * @param {string} name
+ * @returns {string}
+ */
+Comfy.prototype.nameToCamelCaseKey = function (name) {
+  return name.replace(/(\_\w)/g, function (m) {
+    return m[1].toUpperCase();
+  });
 };
 
 /**
@@ -82,22 +130,24 @@ ComfyDsl.prototype.property = function (name, options) {
  * @arg {Object} options
  * @returns {Object}
  */
-ComfyDsl.prototype.withOptions = function (options) {
+Comfy.prototype.withOptions = function (options) {
+  var opts = options || {};
+
   return {
-    required: options.required || false,
-    transform: options.transform || null,
-    optional: options.optional || false,
-    defaultValue: options.defaultValue || undefined
+    required: opts.required || false,
+    transform: opts.transform || null,
+    optional: opts.optional || false,
+    defaultValue: opts.defaultValue || undefined
   };
 };
 
 module.exports = {
-  build: function (definition, customScope) {
-    var dsl = new ComfyDsl();
-    var scope = customScope || process.env;
+  build: function (definition, customEnv) {
+    var env = customEnv || process.env;
+    var config = new Comfy(env);
 
-    definition.call(null, dsl);
+    definition.call(null, config);
 
-    return dsl.resolveAndSetProperties(this, scope);
+    return config;
   }
 };
