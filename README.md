@@ -1,4 +1,4 @@
-# comfy
+# comfy [![npm version](https://badge.fury.io/js/comfy.svg)](http://badge.fury.io/js/comfy)
 
 ![](http://i.imgur.com/Eq6r1Q2.png)
 
