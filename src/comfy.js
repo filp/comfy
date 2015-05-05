@@ -71,19 +71,21 @@ Comfy.prototype.optional = function (name, defaultValue, options) {
  * @arg {Object} options
  */
 Comfy.prototype.property = function (name, options) {
+  var opts = this.withOptions(options);
+
   var envName = this.nameToEnvKey(name);
   var envValue = this.env[envName];
 
   if (typeof envValue === "undefined") {
-    if (options.optional) {
-      envValue = options.defaultValue;
+    if (opts.optional) {
+      envValue = opts.defaultValue;
     } else {
       throw "Required property " + envName + " not present in env:" + this.env;
     }
   }
 
-  if (options.transform) {
-    envValue = options.transform.call(null, envValue);
+  if (opts.transform) {
+    envValue = opts.transform.call(null, envValue);
   }
 
   this.setProperty(name, envValue);
