@@ -16,7 +16,11 @@ var config = comfy.build(function(c) {
 }, env /* use the custom env object instead of process.env */);
 
 assert.equal(config.requiredProp, "required_value");
+assert.equal(config.required_prop, "required_value");
+
 assert.equal(config.optionalProp, "optional_value");
+assert.equal(config.optional_prop, "optional_value");
+
 assert.equal(config.nonExistantOptionalProp, "fallback_value");
 
 console.log("OK!");
