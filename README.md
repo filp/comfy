@@ -17,6 +17,9 @@ var config = comfy.build(function(c) {
   // Optional properties with defaults:
   c.optional("sky_color", "blue");
 
+  // Aliased property names:
+  c.required("important_api_key", { alias: "some_service_key" });
+
   // More complicated syntax if you're running low on your
   // LOC targets for this week:
   c.property("synergy", {
@@ -32,7 +35,11 @@ var config = comfy.build(function(c) {
 console.log(config.skyColor); // => "red"
 
 // If snake_case is your thing, you can also stick to that:
-console.log(config.sky_color) // => "red"
+console.log(config.sky_color); // => "red"
+
+// Name aliases work too:
+// process.env.IMPORTANT_API_KEY === "banana"
+console.log(config.someServiceKey); // => banana
 ```
 
 ## Install:

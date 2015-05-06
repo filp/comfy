@@ -88,6 +88,10 @@ Comfy.prototype.property = function (name, options) {
     envValue = opts.transform.call(null, envValue);
   }
 
+  if (opts.alias) {
+    name = opts.alias;
+  }
+
   this.setProperty(name, envValue);
 };
 
@@ -139,7 +143,8 @@ Comfy.prototype.withOptions = function (options) {
     required: opts.required || false,
     transform: opts.transform || null,
     optional: opts.optional || false,
-    defaultValue: opts.defaultValue || undefined
+    defaultValue: opts.defaultValue || undefined,
+    alias: opts.alias || null
   };
 };
 
