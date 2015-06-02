@@ -11,7 +11,7 @@
  * @class
  */
 function Comfy(env) {
-  this.env = env;
+  this._env = env;
 }
 
 /**
@@ -74,13 +74,13 @@ Comfy.prototype.property = function (name, options) {
   var opts = this.withOptions(options);
 
   var envName = this.nameToEnvKey(name);
-  var envValue = this.env[envName];
+  var envValue = this._env[envName];
 
   if (typeof envValue === "undefined") {
     if (opts.optional) {
       envValue = opts.defaultValue;
     } else {
-      throw "Required property " + envName + " not present in env:" + this.env;
+      throw "Required property " + envName + " not present in env:" + this._env;
     }
   }
 
