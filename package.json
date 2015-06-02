@@ -1,6 +1,6 @@
 {
   "name": "comfy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Configure your applications comfortably",
   "main": "src/comfy.js",
   "repository": {
